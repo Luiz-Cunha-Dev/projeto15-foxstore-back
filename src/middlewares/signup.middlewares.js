@@ -1,6 +1,6 @@
 import joi from "joi";
 
-async function CadastroMiddleware(req, res, next) {
+async function SignUpMiddleware(req, res, next) {
   const {name, email, password, checkpassword} = req.body;
   
   const SchemaSignUp = joi.object({
@@ -17,4 +17,4 @@ async function CadastroMiddleware(req, res, next) {
   next();
 };
 a
-export default CadastroMiddleware;
+export default SignUpMiddleware;
