@@ -16,5 +16,5 @@ async function CadastroMiddleware(req, res, next) {
   }
   next();
 };
-
+a
 export default CadastroMiddleware;
