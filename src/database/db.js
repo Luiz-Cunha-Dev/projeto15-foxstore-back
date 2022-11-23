@@ -1,11 +1,16 @@
-import {MongoClient} from "mongodb";
 import dotenv from "dotenv";
+import { MongoClient } from "mongodb";
+
 dotenv.config();
 
-try{
-    const mongoClient = new MongoClient(process.env.MONGO_URI);
+const mongoClient = new MongoClient(process.env.MONGO_URL);
+let db = null;
+try {
     await mongoClient.connect();
-    const db = mongoClient.db("foxStore");
-} catch(err){
-    console.log(err);
+    db = mongoClient.db('foxStore');
+    console.log("database foi conectado com sucesso");
+} catch (err) {
+    console.log("Erro ao conectar no banco de dados: ", err);
 }
+
+export default db;
