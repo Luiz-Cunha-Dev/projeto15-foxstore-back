@@ -5,7 +5,8 @@ import cors from 'cors';
 
 //Routes
 
- import SignUpRoutes from './routes/signup.router.js';
+import SignUpRoutes from './routes/signup.router.js';
+import SignInRoutes from './routes/singin.router.js';
 
 
 //App
@@ -17,6 +18,7 @@ app.use(cors());
 app.use(express.json());   
 
 app.use(SignUpRoutes);
+app.use(SignInRoutes);
 
 
 //Server
