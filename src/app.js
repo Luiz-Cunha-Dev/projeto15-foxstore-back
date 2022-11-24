@@ -7,6 +7,7 @@ import cors from 'cors';
 
 import SignUpRoutes from './routes/signup.router.js';
 import SignInRoutes from './routes/singin.router.js';
+import ProductsRoutes from './routes/products.router.js';
 
 
 //App
@@ -19,10 +20,11 @@ app.use(express.json());
 
 app.use(SignUpRoutes);
 app.use(SignInRoutes);
+app.use(ProductsRoutes)
 
 
 //Server
-const port = process.env.PORT;
+const port = process.env.PORT || 5000;
 app.listen(port, () => {
 console.log("____________________________________________________");
 console.log("|  ||  /|                                           |");
