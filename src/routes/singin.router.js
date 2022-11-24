@@ -1,9 +1,9 @@
 import { Router } from "express";
-import SignInController from "../controllers/signin.controller";
-import SignInMiddleware from "../middlewares/signin.middlewares";
+import SignInController from "../controllers/signin.controller.js";
+import SignInMiddleware from "../middlewares/signin.middlewares.js";
 
 const SignInRoutes = Router();
 
-SignInRoutes.post('/signup', SignInMiddleware, SignInController);
+SignInRoutes.post('/signin', SignInMiddleware, SignInController);
 
 export default SignInRoutes;

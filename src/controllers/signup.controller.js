@@ -11,17 +11,19 @@ async function SignUpController(req, res) {
     const signUp = {name, email, password: hashcode, checkpasword: checkhashcode,}
     try {
         const userexists = await db.collection("users").findOne({email});
-        if(userexists) {
+        if(!userexists) {
+            await db.collection("users").insertOne(signUp); 
+            const token = uuid();
+            const userInformation = await db.collection("users").findOne({email});
+            const { _id } = userInformation;
+            const keys = {_id,token}
+            await db.collection("keys").insertOne(keys); 
+            res.status(201).send("User created sucessfully");   
+        }else{
             res.status(400).send("This email is already registered");
             return;
-        }else{
-        await db.collection("users").insertOne(signUp); 
-        const token = uuid();
-        const userInformation = await db.collection("users").findOne({email});
-        const { _id } = userInformation;
-        const keys = {_id,token}
-        await db.collection("keys").insertOne(keys); 
-        res.status(201).send("User created sucessfully");}
+        }
+        
     } catch (err) {
         res.status(500).send('Erro');
     }

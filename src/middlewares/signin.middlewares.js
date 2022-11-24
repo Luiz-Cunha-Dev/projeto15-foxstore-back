@@ -8,7 +8,7 @@ async function SignInMiddleware(req, res, next) {
       password: joi.string().min(6).max(20).required(),
   }); 
 
-  const auth = SignInAuth.validate({name, email, password, checkpassword});
+  const auth = SignInAuth.validate({email, password});
   if (auth.error) {
       res.status(400).send(auth.error.details[0].message);
       return;

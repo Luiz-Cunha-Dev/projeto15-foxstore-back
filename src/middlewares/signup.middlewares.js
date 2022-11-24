@@ -16,5 +16,5 @@ async function SignUpMiddleware(req, res, next) {
   }
   next();
 };
-a
+
 export default SignUpMiddleware;
