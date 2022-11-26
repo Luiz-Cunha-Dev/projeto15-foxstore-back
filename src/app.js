@@ -9,6 +9,7 @@ import SignUpRoutes from './routes/signup.router.js';
 import SignInRoutes from './routes/singin.router.js';
 import ProductsRoutes from './routes/products.router.js';
 import cartRouter from './routes/cart.router.js';
+import checkoutRouter from './routes/checkout.router.js';
 
 
 //App
@@ -23,6 +24,7 @@ app.use(SignUpRoutes);
 app.use(SignInRoutes);
 app.use(ProductsRoutes);
 app.use(cartRouter);
+app.use(checkoutRouter)
 
 
 //Server

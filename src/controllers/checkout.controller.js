@@ -6,8 +6,8 @@ async function CheckoutController(req, res) {
     let total = 0;
 
     try {
-
-        const cart = await db.collection("cart").find().toArray()
+        res,send("Checkout");
+        const cart = await db.collection("cart").findOne({ token });
         const product = await db.collection("products").find().toArray()
 
         if (!cart) {
@@ -51,5 +51,10 @@ async function GetCheckoutController(req, res) {
     }
 }
 
-export { CheckoutController, GetCheckoutController };
+
+function PrintInScreen(req, res) {
+    res.send("Print in screen");
+}
+
+export { CheckoutController, GetCheckoutController, PrintInScreen };
 
