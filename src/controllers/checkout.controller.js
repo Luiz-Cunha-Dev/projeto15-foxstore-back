@@ -6,13 +6,11 @@ async function CheckoutController(req, res) {
     let total = 0;
 
     try {
-        res.send("Checkout");
         const cart = await db.collection("cart").findOne({ token });
         const product = await db.collection("products").find().toArray()
 
         if (!cart) {
-            res.send("Checkout 2");
-            //res.status(404).send("your cart is empty");
+            res.status(404).send("your cart is empty");
         }
         //comparar se o produto existe no carrinho e se existe, subtrai a quantidade do produto no carrinho com a quantidade do produto no banco de dados
        for(let i = 0; i < cart.length; i++){
@@ -22,8 +20,7 @@ async function CheckoutController(req, res) {
                     if(cart[i].name === product[j].name){
                         productInventory -= cart[i].qtde;
                         if(productInventory < 0){
-                            res.send("Checkout 3");
-                            //res.status(404).send("insufficient inventory");
+                            res.status(404).send("insufficient inventory");
                         }
                         else{
                             await db.collection("products").updateOne({name: product[j].name}, {$set: {inventory: productInventory}});
@@ -32,7 +29,6 @@ async function CheckoutController(req, res) {
                     }
                 }
             }
-            res.send("Checkout 5");
         await db.collection("orders").insertOne({ token, total, cart });
         await db.collection("cart").deleteMany({});
     }
