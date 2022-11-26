@@ -3,7 +3,6 @@ import db from "../database/db.js";
 async function CheckoutController(req, res) {
     const { authorization } = req.headers;
     const token = authorization?.replace("Bearer ", "");
-    let total = 0;
 
     try {
         const cart = await db.collection("cart").findOne({ token });
@@ -19,7 +18,6 @@ async function CheckoutController(req, res) {
                         productInventory -= cart[i].qtde;
                         if(productInventory > 0){
                             await db.collection("products").updateOne({name: product[j].name}, {$set: {inventory: productInventory}});
-                            total += cart[i].value * cart[i].qtde;
                         }
                     }
                 }
@@ -48,4 +46,3 @@ async function GetCheckoutController(req, res) {
 }
 
 export { CheckoutController, GetCheckoutController };
-
