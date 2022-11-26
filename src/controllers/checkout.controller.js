@@ -30,7 +30,7 @@ async function CheckoutController(req, res) {
         console.log(err)
         res.status(401).send("error");
     }
-};
+}
 
 
 async function GetCheckoutController(req, res) {
