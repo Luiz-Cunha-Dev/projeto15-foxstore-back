@@ -23,7 +23,7 @@ async function cartController(req, res) {
                 }
             }
         }
-        else if(!cart.name.includes( name ) ){
+        else {
             await db.collection("cart").insertOne({
                 token,
                 name: product.name,
