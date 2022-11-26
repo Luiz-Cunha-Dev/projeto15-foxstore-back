@@ -8,10 +8,15 @@ async function cartController(req, res) {
     try {
 
         const product = await db.collection("products").findOne({ name });
+        const cart = await db.collection("cart").findOne( { name } );
         
          if (!product) {
             res.status(404).send("product does not exist");
         } 
+        //se o produto já existe no carrinho, atualiza a quantidade
+        else if (cart && cart.name === name) {
+            await db.collection("cart").updateOne({ name }, { $set: { qtde: cart.qtde + qtde } });
+        }
 
         await db.collection("cart").insertOne({
             token,
