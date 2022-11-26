@@ -23,7 +23,7 @@ async function CheckoutController(req, res) {
                 }
             }
         await db.collection("orders").insertOne({ token, total, cart });
-        await db.collection("cart").deleteMany({ token });
+        await db.collection("cart").deleteMany({});
         res.sendStatus(200).send("Order placed successfully");
     }
     catch (err) {
