@@ -47,5 +47,5 @@ async function GetCheckoutController(req, res) {
     }
 }
 
-export { CheckoutController, GetCheckoutController, PrintInScreen };
+export { CheckoutController, GetCheckoutController };
 
