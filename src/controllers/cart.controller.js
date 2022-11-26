@@ -8,50 +8,24 @@ async function cartController(req, res) {
     try {
 
         const product = await db.collection("products").findOne({ name });
-        const cart = await db.collection("cart").findOne({ name});
-     
-
-        if (!product) {
+        
+         if (!product) {
             res.status(404).send("product does not exist");
         } 
-        //se o produto já existe no carrinho, atualiza a quantidade
-        else if (cart) {
-            for (let i = 0; i < cart.length; i++) {
-                if (cart[i].name === name) {
-                    cart[i].qtde = qtde;
-                    await db.collection("cart").updateOne( { name }, { $set: { qtde } } );
-                    res.status(200).send("product updated");
-                }
-                else {
-                    await db.collection("cart").insertOne({
-                        token,
-                        name: product.name,
-                        description: product.description,
-                        image: product.image,
-                        value: product.value,
-                        categorie: product.categorie,
-                        inventory: product.inventory,
-                        qtde
-                    });
-            
-                    res.sendStatus(201).send("product added");
-                }
-            }
-        }
-        else{
-            await db.collection("cart").insertOne({
-                token,
-                name: product.name,
-                description: product.description,
-                image: product.image,
-                value: product.value,
-                categorie: product.categorie,
-                inventory: product.inventory,
-                qtde
-            });
-    
-            res.sendStatus(201).send("product added");
-        }
+
+        await db.collection("cart").insertOne({
+            token,
+            name: product.name,
+            description: product.description,
+            image: product.image,
+            value: product.value,
+            categorie: product.categorie,
+            inventory: product.inventory,
+            qtde
+        });
+
+        res.sendStatus(201);
+
     } catch (err) {
         console.log(err)
         res.status(401).send(err)
