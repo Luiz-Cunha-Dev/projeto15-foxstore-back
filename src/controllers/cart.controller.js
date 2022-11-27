@@ -28,7 +28,7 @@ async function cartController(req, res) {
         res.sendStatus(201);
 
     } catch (err) {
-        console.log(err)
+        
         res.status(401).send(err)
     }
 
@@ -51,12 +51,12 @@ async function getcartController (req, res){
 async function removeCartController (req, res){
   
     const {id} = req.body;
+    console.log(new ObjectId(id))
     
     try{
-        await db.collection("cart").deleteOne({ _id: id })
+        await db.collection("cart").deleteOne({ _id: ObjectId(id) })
          res.status(200).send({ message: "Documento apagado com sucesso!" });
-    /*    const teste =  await db.collection("cart").findOne({ _id: id })
-        res.send(teste) */
+    
     } catch (err){
         
         res.status(401).send(err)
