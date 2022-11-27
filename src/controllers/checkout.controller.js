@@ -18,12 +18,13 @@ async function CheckoutController(req, res) {
                     if(cart[i].name === product[j].name){
                         productInventory -= cart[i].qtde;
                         if(productInventory > 0){
-                            await db.collection("products").updateOne({name: product[j].name}, {$set: {inventory: productInventory}}); 
-                        }total += cart[i].value * cart[i].qtde;
+                            await db.collection("products").updateOne({name: product[j].name}, {$set: {inventory: productInventory}});
+                            total += cart[i].value * cart[i].qtde;
+                        }
                     }
                 }
             }
-        await db.collection("orders").insertOne({ token, total, cart });
+        await db.collection("orders").insertOne({ token, cart });
         await db.collection("cart").deleteMany({});
         res.sendStatus(200).send("Order placed successfully");
     }
