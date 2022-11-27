@@ -51,12 +51,14 @@ async function getcartController (req, res){
 async function removeCartController (req, res){
   
     const productId = req.body;
-
+    console.log()
     try{
-        await db.collection("cart").deleteOne({ _id: ObjectId(productId._id) })
-         res.status(200).send({ message: "Documento apagado com sucesso!" });
+       /*  await db.collection("cart").deleteOne({ _id: ObjectId(productId._id) })
+         res.status(200).send({ message: "Documento apagado com sucesso!" }); */
+       const teste =  await db.collection("cart").findOne({ _id: ObjectId(productId._id) })
+        res.send(teste)
     } catch (err){
-        console.log(err)
+        
         res.status(401).send(err)
     }
 }
