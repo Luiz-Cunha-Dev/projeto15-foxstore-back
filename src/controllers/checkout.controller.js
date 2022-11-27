@@ -1,5 +1,6 @@
 import db from "../database/db.js";
 
+
 async function CheckoutController(req, res) {
     const { authorization } = req.headers;
     const token = authorization?.replace("Bearer ", "");
@@ -25,7 +26,7 @@ async function CheckoutController(req, res) {
                 }
             }
         await db.collection("orders").insertOne({ token, total, cart });
-        await db.collection("cart").deleteMany({});
+        await db.collection("cart").deleteOne({ token });
         res.sendStatus(200).send("Order placed successfully");
     }
     catch (err) {
@@ -39,7 +40,7 @@ async function GetCheckoutController(req, res) {
     const { authorization } = req.headers;
     const token = authorization?.replace("Bearer ", "");
     try {
-        const orderList = await db.collection("orders").findOne({ token }).toArray();
+        const orderList = await db.collection("orders").findOne({ token });
         res.status(200).send(orderList);
     } catch (err) {
         console.log(err);
