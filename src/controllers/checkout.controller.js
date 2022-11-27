@@ -43,7 +43,7 @@ async function GetCheckoutController(req, res) {
         res.status(200).send(orderList);
     } catch (err) {
         console.log(err);
-        res.sendStatus(500);
+        res.sendStatus(500).res("DEU RUIM");
     }
 }
 
