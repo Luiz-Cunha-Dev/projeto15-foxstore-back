@@ -3,6 +3,7 @@ import db from "../database/db.js";
 async function CheckoutController(req, res) {
     const { authorization } = req.headers;
     const token = authorization?.replace("Bearer ", "");
+    let total = 0;
 
     try {
         const cart = await db.collection("cart").findOne({ token });
@@ -17,8 +18,8 @@ async function CheckoutController(req, res) {
                     if(cart[i].name === product[j].name){
                         productInventory -= cart[i].qtde;
                         if(productInventory > 0){
-                            await db.collection("products").updateOne({name: product[j].name}, {$set: {inventory: productInventory}});
-                        }
+                            await db.collection("products").updateOne({name: product[j].name}, {$set: {inventory: productInventory}}); 
+                        }total += cart[i].value * cart[i].qtde;
                     }
                 }
             }
@@ -30,14 +31,14 @@ async function CheckoutController(req, res) {
         console.log(err)
         res.status(401).send("error");
     }
-}
+};
 
 
 async function GetCheckoutController(req, res) {
     const { authorization } = req.headers;
     const token = authorization?.replace("Bearer ", "");
     try {
-        const orderList = await db.collection("orders").findOne({ token });
+        const orderList = await db.collection("orders").findOne({ token }).toArray();
         res.status(200).send(orderList);
     } catch (err) {
         console.log(err);
