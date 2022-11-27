@@ -1,6 +1,5 @@
 import db from "../database/db.js";
 
-
 async function CheckoutController(req, res) {
     const { authorization } = req.headers;
     const token = authorization?.replace("Bearer ", "");
