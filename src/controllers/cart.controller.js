@@ -1,3 +1,4 @@
+import { ObjectId } from "mongodb";
 import db from "../database/db.js";
 
 async function cartController(req, res) {
@@ -52,7 +53,7 @@ async function removeCartController (req, res){
     const productId = req.body;
 
     try{
-        await db.collection("cart").deleteMany({ _id: productId?._id })
+        await db.collection("cart").deleteMany({ _id: ObjectId(productId._id) })
         res.sendStatus(201)
     } catch (err){
         console.log(err)
