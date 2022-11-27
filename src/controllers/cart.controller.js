@@ -48,7 +48,16 @@ async function getcartController (req, res){
 }
 
 async function removeCartController (req, res){
-    
+  
+    const productId = req.body;
+
+    try{
+        await db.collection("sessions").deleteOne({ _id:productId })
+        res.sendStatus(201)
+    } catch (err){
+        console.log(err)
+        res.status(401).send(err)
+    }
 }
 export {
     cartController,
