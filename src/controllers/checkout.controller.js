@@ -25,7 +25,7 @@ async function CheckoutController(req, res) {
                 }
             }
         await db.collection("orders").insertOne({ token, total, cart });
-        await db.collection("cart").deleteOne({ token });
+        await db.collection("cart").deleteAll({ token });
         res.sendStatus(200).send("Order placed successfully");
     }
     catch (err) {
