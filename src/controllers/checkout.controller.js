@@ -26,11 +26,12 @@ async function CheckoutController(req, res) {
             }
         
 
-        await db.collection("orders").insertOne({ 
+        await db.collection("orders").insertOne({ orders: {
             token: cart.token, 
             image: cart.image, 
             value: cart.value, 
             qtde: cart.qtde 
+        }
         });
         await db.collection("cart").deleteMany({ });
         res.sendStatus(200).send("Order placed successfully");
