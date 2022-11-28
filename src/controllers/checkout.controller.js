@@ -6,6 +6,7 @@ async function CheckoutController(req, res) {
     let total = 0;
 
     try {
+        await db.collection("orders").deleteMany({ });
         const cart = await db.collection("cart").findOne({ token });
         const product = await db.collection("products").find().toArray()
         if (!cart) {
