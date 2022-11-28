@@ -43,16 +43,16 @@ async function CheckoutController(req, res) {
 };
 
 
-// async function GetCheckoutController(req, res) {
-//     const { authorization } = req.headers;
-//     const token = authorization?.replace("Bearer ", "");
-//     try {
-//         const orderList = await db.collection("orders").find({ token }).toArray();
-//         res.status(200).send(orderList);
-//     } catch (err) {
-//         console.log(err);
-//         res.sendStatus(500).res("DEU RUIM");
-//     }
-// }
+export async function GetCheckoutController(req, res) {
+    const { authorization } = req.headers;
+    const token = authorization?.replace("Bearer ", "");
+    try {
+        const orderList = await db.collection("orders").find({ token }).toArray();
+        res.status(200).send(orderList);
+    } catch (err) {
+        console.log(err);
+        res.sendStatus(500).res("DEU RUIM");
+    }
+}
 
 export { CheckoutController };

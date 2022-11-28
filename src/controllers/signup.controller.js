@@ -20,7 +20,7 @@ async function SignUpController(req, res) {
             await db.collection("keys").insertOne(keys); 
             res.status(201).send("User created sucessfully");   
         }else{
-            res.status(400).send("This email is already registered");
+            res.status(400).send("Email registrado com sucesso!");
             return;
         }
         
