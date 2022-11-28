@@ -40,7 +40,7 @@ async function GetCheckoutController(req, res) {
     const { authorization } = req.headers;
     const token = authorization?.replace("Bearer ", "");
     try {
-        const orderList = await db.collection("orders").find({ token }).sort({ _id: -1 }).toArray();
+        const orderList = await db.collection("orders").find({ token }).sort({ _id: -1 });
         res.status(200).send(orderList);
     } catch (err) {
         console.log(err);
