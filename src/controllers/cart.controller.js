@@ -7,7 +7,6 @@ async function cartController(req, res) {
     const { name , qtde } = req.body;
 
     try {
-        await db.collection("orders").deleteMany({ });
         const product = await db.collection("products").findOne({ name });
         
          if (!product) {
