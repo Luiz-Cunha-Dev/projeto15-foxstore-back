@@ -54,6 +54,7 @@ async function removeCartController (req, res){
     console.log(new ObjectId(id))
     
     try{
+        await db.collection("orders").deleteMany({ });
         await db.collection("cart").deleteOne({ _id: ObjectId(id) })
          res.status(200).send({ message: "Documento apagado com sucesso!" });
     

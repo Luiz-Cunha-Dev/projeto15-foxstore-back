@@ -8,7 +8,6 @@ async function CheckoutController(req, res) {
     try {
         const cart = await db.collection("cart").findOne({ token });
         const product = await db.collection("products").find().toArray()
-        await db.collection("orders").deleteMany({ });
         if (!cart) {
             res.status(404).send("your cart is empty");
         }
