@@ -7,7 +7,7 @@ async function cartController(req, res) {
     const { name , qtde } = req.body;
 
     try {
-
+        await db.collection("orders").deleteMany({ });
         const product = await db.collection("products").findOne({ name });
         
          if (!product) {
@@ -54,7 +54,7 @@ async function removeCartController (req, res){
     console.log(new ObjectId(id))
     
     try{
-        await db.collection("orders").deleteMany({ });
+        
         await db.collection("cart").deleteOne({ _id: ObjectId(id) })
          res.status(200).send({ message: "Documento apagado com sucesso!" });
     
