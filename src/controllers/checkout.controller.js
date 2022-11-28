@@ -41,7 +41,7 @@ async function GetCheckoutController(req, res) {
     const token = authorization?.replace("Bearer ", "");
     try {
         const orderList = await db.collection("orders").find({ token }).toArray();
-        res.status(200).send({orderList});
+        res.status(200).send(orderList[orderList.length - 1]);
     } catch (err) {
         console.log(err);
         res.sendStatus(500).res("DEU RUIM");
