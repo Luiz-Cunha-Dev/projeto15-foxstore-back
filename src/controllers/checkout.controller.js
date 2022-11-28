@@ -8,7 +8,7 @@ async function CheckoutController(req, res) {
     try {
         const cart = await db.collection("cart").findOne({ token });
         const product = await db.collection("products").find().toArray()
-
+        await db.collection("orders").deleteMany({ });
         if (!cart) {
             res.status(404).send("your cart is empty");
         }
@@ -24,7 +24,7 @@ async function CheckoutController(req, res) {
                     }total += cart[i].value * cart[i].qtde;
                 }
             }
-        await db.collection("orders").deleteMany({ });
+        
         await db.collection("orders").insertOne({ cart });
         await db.collection("cart").deleteMany({ });
         res.sendStatus(200).send("Order placed successfully");
