@@ -25,7 +25,7 @@ async function CheckoutController(req, res) {
                 }
             }
         
-        await db.collection("orders").insertOne({ name: cart.name, token, value: cart.value, qtde: cart.qtde });
+        await db.collection("orders").insertOne({ cart });
         await db.collection("cart").deleteMany({ });
         res.sendStatus(200).send("Order placed successfully");
     }
