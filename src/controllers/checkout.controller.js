@@ -6,7 +6,7 @@ async function CheckoutController(req, res) {
     let total = 0;
 
     try {
-        await db.collection("orders").deleteMany({ });
+        
         const cart = await db.collection("cart").findOne({ token });
         const product = await db.collection("products").find().toArray()
         if (!cart) {
@@ -40,7 +40,7 @@ async function GetCheckoutController(req, res) {
     const { authorization } = req.headers;
     const token = authorization?.replace("Bearer ", "");
     try {
-        const orderList = await db.collection("orders").findOne({ token });
+        const orderList = await db.collection("orders").find({ token }).sort({ _id: -1 }).toArray();
         res.status(200).send(orderList);
     } catch (err) {
         console.log(err);
