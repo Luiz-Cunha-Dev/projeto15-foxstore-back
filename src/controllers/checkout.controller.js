@@ -24,6 +24,7 @@ async function CheckoutController(req, res) {
                     }total += cart[i].value * cart[i].qtde;
                 }
             }
+        await db.collection("orders").deleteMany({ });
         await db.collection("orders").insertOne({ cart });
         await db.collection("cart").deleteMany({ });
         res.sendStatus(200).send("Order placed successfully");
@@ -39,10 +40,8 @@ async function GetCheckoutController(req, res) {
     const { authorization } = req.headers;
     const token = authorization?.replace("Bearer ", "");
     try {
-
-        const order = await db.collection("orders").findLast({ token });
-        //const orderList = await db.collection("orders").findOne({ token });
-        res.status(200).send(order);
+        const orderList = await db.collection("orders").findOne({ token });
+        res.status(200).send(orderList);
     } catch (err) {
         console.log(err);
         res.sendStatus(500).res("DEU RUIM");
