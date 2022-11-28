@@ -39,9 +39,10 @@ async function GetCheckoutController(req, res) {
     const { authorization } = req.headers;
     const token = authorization?.replace("Bearer ", "");
     try {
-        //find the last order in the database and return it
-        const order = await db.collection("orders").find( { token } ).sort(-1).limit(1);
-        res.status(200).send(order);
+
+        const order = await db.collection("orders").findLast({ token });
+        const orderList = await db.collection("orders").findOne({ token });
+        res.status(200).send(orderList);
     } catch (err) {
         console.log(err);
         res.sendStatus(500).res("DEU RUIM");
