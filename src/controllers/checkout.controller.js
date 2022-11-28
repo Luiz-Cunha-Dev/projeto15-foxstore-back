@@ -41,7 +41,7 @@ async function GetCheckoutController(req, res) {
     try {
         //find the last order in the database and return it
         const order = await db.collection("orders").find( { token } ).sort({$natural:-1}).limit(1).toArray();
-        res.status(200).send(orderList);
+        res.status(200).send(order);
     } catch (err) {
         console.log(err);
         res.sendStatus(500).res("DEU RUIM");
