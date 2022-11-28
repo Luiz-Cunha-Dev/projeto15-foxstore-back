@@ -1,6 +1,7 @@
 import db from "../database/db.js";
+import { ObjectId } from "mongodb";
 
-async function ProductsController(req, res){
+export async function GetProductsController(req, res){
     try{
         const productsList = await db.collection("products").find().toArray()
 
@@ -11,4 +12,19 @@ async function ProductsController(req, res){
     }
 }
 
-export default ProductsController
+export async function PutProductsController(req, res){
+    const id = req.id
+    
+    try{
+        const product = await db.collection("products").findOne({_id: ObjectId(id)})
+
+        product.inventory = product.inventory - 1;
+        
+        await db.collection("products").updateOne({_id: ObjectId(id)}, {$set: product})
+
+        res.status(201).send("Atualizado com sucesso!");
+    } catch(err){
+        console.log(err);
+        res.sendStatus(500)
+    }
+}
