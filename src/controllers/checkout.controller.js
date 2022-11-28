@@ -41,8 +41,8 @@ async function GetCheckoutController(req, res) {
     try {
 
         const order = await db.collection("orders").findLast({ token });
-        const orderList = await db.collection("orders").findOne({ token });
-        res.status(200).send(orderList);
+        //const orderList = await db.collection("orders").findOne({ token });
+        res.status(200).send(order);
     } catch (err) {
         console.log(err);
         res.sendStatus(500).res("DEU RUIM");
